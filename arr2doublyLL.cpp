@@ -31,6 +31,38 @@ node* convert2LL(vector<int> &nums) {
     return head;
 }
 
+// delete the tail of LL
+node* deleteTail(node* head) {
+    if(head == nullptr || head->next == nullptr) {
+        return nullptr;
+    }
+    
+    node* tail = head;
+    while(tail ->next != nullptr) {
+        tail = tail->next;
+    }
+    
+    node* newTail = tail->back;
+    newTail->next = nullptr;
+    
+    tail->back = nullptr;
+    delete(tail);
+    return head;
+}
+
+// delete the head of LL
+node* deletehead(node* head) {
+    if(head == nullptr || head-> next == nullptr) return nullptr;
+    node* prev = head;
+    head = head->next;
+    head->back = nullptr;
+    
+    prev->next = nullptr;
+    delete(prev);
+    
+    return head;
+}
+
 void print(node* head) {
     while(head != nullptr) {
         cout << head->data << " ";
@@ -43,7 +75,8 @@ int main() {
     
     vector<int> nums = {2,4,5,7,8,9};
     node* head = convert2LL(nums);
-    print(head);
+    node* newHead = deleteTail(head);
+    print(newHead);
     
     return 0;
 }
